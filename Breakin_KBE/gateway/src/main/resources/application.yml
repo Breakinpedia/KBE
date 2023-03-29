@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: APIGATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: currency-service
+          uri: lb://CURRENCY-SERVICE
+          predicates:
+          - Path=/api/currency/**
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/order/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/payment/**
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/product/**
+        - id: warehouse-service
+          uri: lb://WAREHOUSE-SERVICE
+          predicates:
+            - Path=/api/warehouse/**
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    hostname: localhost
+server:
+  port: 1010
